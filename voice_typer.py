@@ -26,11 +26,11 @@ canvas.pack()
 root.attributes("-topmost", True)
 
 
-# 円を描画する関数
+# 録音マークを書く関数
 def draw_circle():
     canvas.create_oval(10, 10, 90, 90, fill="red")
 
-# 円を非表示にする関数
+# 録音マークを消す関数
 def hide_circle():
     canvas.delete("all")
 
@@ -40,7 +40,9 @@ def hide_circle():
 def voice_recog():
     with sr.Microphone() as source:
         print("話してください")
+        draw_circle()
         audio = r.listen(source)
+        hide_circle()
 
         try:
             # 音声をテキストに変換
@@ -58,9 +60,7 @@ def key_event_operator(e):
         if e.name == "insert":
             # print("Insertキーが押されました")
 
-            draw_circle()
             voice_txt = voice_recog()
-            hide_circle()
             print(voice_txt)
 
             # クリップボードに文字列をコピーします
